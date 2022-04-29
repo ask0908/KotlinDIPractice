@@ -3,6 +3,7 @@ package com.ulternativetechnology.kotlinwithkointest.dagger2
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -20,13 +21,13 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder
 
     class MyViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
-        val imageView = view.imageView
-        val textviewName = view.textviewName
-        val textviewDesription = view.textviewDescription
+        private val imageView = view.imageView
+        private val textviewName = view.textviewName
+        private val textviewDescription = view.textviewDescription
 
         fun bind(data: RecyclerData) {
-            textviewName.setText(data.name)
-            textviewDesription.setText(data.description)
+            textviewName.text = data.name
+            textviewDescription.text = data.description
 
             Glide.with(imageView)
                 .load(data.owner?.avatar_url)
@@ -40,13 +41,11 @@ class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder
         return MyViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(listData?.get(position)!!)
-    }
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) = holder.bind(listData?.get(position)!!)
 
     override fun getItemCount(): Int {
-        if (listData == null) return 0
-        else return listData?.size!!
+        return if (listData == null) 0
+        else listData?.size!!
     }
 
 }

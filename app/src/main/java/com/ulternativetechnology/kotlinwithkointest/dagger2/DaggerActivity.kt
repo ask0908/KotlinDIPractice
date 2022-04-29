@@ -35,7 +35,7 @@ class DaggerActivity : AppCompatActivity() {
     }
 
     private fun initViewModel() {
-        mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
+        mainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         mainActivityViewModel.getLiveDataObserver().observe(this) { t ->
             if (t != null) {
                 recyclerViewAdapter.setUpdatedData(t.items)
@@ -45,6 +45,7 @@ class DaggerActivity : AppCompatActivity() {
             }
         }
 
+        // call.enqueue() 수행
         mainActivityViewModel.makeApiCall()
     }
 

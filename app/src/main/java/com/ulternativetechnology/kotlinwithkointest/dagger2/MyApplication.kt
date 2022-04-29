@@ -13,6 +13,7 @@ class MyApplication: Application() {
         super.onCreate()
 
         // DaggerRetroComponent가 import되지 않으면 rebuild ㄱㄱ
+        /* @Component의 영향으로 RetroComponent 인터페이스 앞에 "Dagger"가 붙음 */
         retroComponent = DaggerRetroComponent.builder()
             .retroModule(RetroModule())
             .build()

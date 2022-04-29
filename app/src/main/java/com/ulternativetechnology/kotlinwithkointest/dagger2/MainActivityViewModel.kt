@@ -11,10 +11,12 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class MainActivityViewModel(application: Application): AndroidViewModel(application) {
+    /* @Inject : Dagger에 의존성을 요청하는 어노테이션 */
     @Inject
     lateinit var mService: RetroServiceInterface
-    private lateinit var liveDataList: MutableLiveData<RecyclerList>
+    private var liveDataList: MutableLiveData<RecyclerList>
 
+    /* 생성자를 통해 인스턴스가 생성될 때 호출되는 함수. 매개변수, 리턴값이 없음 */
     init {
         (application as MyApplication).getRetroComponent().inject(this)
         liveDataList = MutableLiveData()
