@@ -1,7 +1,7 @@
 package com.ulternativetechnology.kotlinwithkointest.util
 
 import android.util.Log
-import com.ulternativetechnology.kotlinwithkointest.BaseApplication
+import com.ulternativetechnology.kotlinwithkointest.base.BaseApplication
 
 /* 로그 출력 관련 기능들을 모아놓은 object */
 object LogUtil {

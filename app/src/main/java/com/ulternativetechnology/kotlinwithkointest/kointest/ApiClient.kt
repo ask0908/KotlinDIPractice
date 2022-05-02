@@ -3,6 +3,7 @@ package com.ulternativetechnology.kotlinwithkointest.kointest
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.ulternativetechnology.kotlinwithkointest.util.LogUtil
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

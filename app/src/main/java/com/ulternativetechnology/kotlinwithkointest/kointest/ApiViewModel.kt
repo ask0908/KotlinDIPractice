@@ -2,10 +2,13 @@ package com.ulternativetechnology.kotlinwithkointest.kointest
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.ulternativetechnology.kotlinwithkointest.BaseViewModel
+import androidx.lifecycle.viewModelScope
+import com.ulternativetechnology.kotlinwithkointest.base.BaseViewModel
 import com.ulternativetechnology.kotlinwithkointest.util.LogUtil
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers.io
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class ApiViewModel(private val repo: ApiInterface) : BaseViewModel() {
     val TAG = this.javaClass.simpleName
@@ -13,7 +16,6 @@ class ApiViewModel(private val repo: ApiInterface) : BaseViewModel() {
     val isRegisteredUserData: LiveData<ServerResponse>
         get() = _isRegisteredUserData
 
-    //    fun test(email: String) = repo.isRegisteredUser(email)
     fun test(email: String): MutableLiveData<ServerResponse> {
         addDisposable(repo.isRegisteredUser(email)
             .subscribeOn(io())

@@ -1,4 +1,4 @@
-package com.ulternativetechnology.kotlinwithkointest
+package com.ulternativetechnology.kotlinwithkointest.base
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

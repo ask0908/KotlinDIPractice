@@ -1,4 +1,4 @@
-package com.ulternativetechnology.kotlinwithkointest
+package com.ulternativetechnology.kotlinwithkointest.base
 
 import android.app.Application
 import android.content.Context

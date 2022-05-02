@@ -9,8 +9,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
-    <!-- MyApplication : Dagger2를 쓸 때 필요한 Application 상속 클래스
-    BaseApplication : Koin을 쓸 때 필요한 Application 상속 클래스 -->
     <application
         android:name=".dagger2.MyApplication"
         android:allowBackup="true"
@@ -21,7 +19,7 @@
         android:theme="@style/Theme.KotlinWithKoinTest"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".dagger2.DaggerActivity"
+            android:name=".Flow.FlowActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".dagger2.DaggerActivity"
             android:exported="true">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -38,6 +36,9 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

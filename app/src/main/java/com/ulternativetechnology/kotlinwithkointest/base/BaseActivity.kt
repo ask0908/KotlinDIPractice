@@ -1,4 +1,4 @@
-package com.ulternativetechnology.kotlinwithkointest
+package com.ulternativetechnology.kotlinwithkointest.base
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.ulternativetechnology.kotlinwithkointest.R
 import com.ulternativetechnology.kotlinwithkointest.util.NetworkManager.isNetworkConnected
 
 abstract class BaseActivity<T: ViewDataBinding>: AppCompatActivity() {

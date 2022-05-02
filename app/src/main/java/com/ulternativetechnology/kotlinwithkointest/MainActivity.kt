@@ -1,6 +1,7 @@
 package com.ulternativetechnology.kotlinwithkointest
 
 import android.os.Bundle
+import com.ulternativetechnology.kotlinwithkointest.base.BaseActivity
 import com.ulternativetechnology.kotlinwithkointest.databinding.ActivityMainBinding
 import com.ulternativetechnology.kotlinwithkointest.kointest.ApiViewModel
 import com.ulternativetechnology.kotlinwithkointest.util.LogUtil
