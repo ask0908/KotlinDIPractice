@@ -49,13 +49,19 @@ class FlowActivity : BaseActivity<ActivityFlowBinding>(), CoroutineScope {
         /* launch {} 밖의 코드들이 먼저 실행된 다음 내부 코드들이 실행된다 */
         launch {
             showProgressDialog()
-            LogUtil.e(TAG, "launch {} 내부 실행");
-            apiViewModel.isRegisteredUserForRetrofit("test").observe(this@FlowActivity) { data ->
-                LogUtil.e(TAG, "액티비티에서 data.result : ${data!!.result}");
+            /* 서버 응답을 깡 String으로 받아올 경우. 이 경우 펀드고 때처럼 처음부터 파싱해서 값을 빼와야 한다 */
+            apiViewModel.isRegisteredUserString("test").observe(this@FlowActivity) { data ->
+                if (data != null) {
+                    LogUtil.e(TAG, "액티비티에서 성공 확인 : $data");
+                } else {
+                    LogUtil.e(TAG, "액티비티에서 확인한 값이 null");
+                }
             }
+            /* 서버 응답을 ServerResponse에 맞춰 받아올 경우. 이 경우 파싱 단계가 1차례 줄어든다 */
+//            apiViewModel.isRegisteredUserForRetrofit("test").observe(this@FlowActivity) { data ->
+//                LogUtil.e(TAG, "액티비티에서 data.result : ${data!!.result}");
+//            }
             dismissProgressDialog()
         }
-
-        LogUtil.e(TAG, "launch {} 외부 실행");
     }
 }

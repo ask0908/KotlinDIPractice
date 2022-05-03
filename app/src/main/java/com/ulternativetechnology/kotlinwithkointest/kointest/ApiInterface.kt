@@ -17,4 +17,9 @@ interface ApiInterface {
     fun isRegisteredUserForRetrofit(
         @Query("userEmail") email: String
     ): Call<ServerResponse>
+
+    @GET("api/user/email/{userEmail}")
+    fun isRegisteredUserString(
+        @Query("userEmail") email: String
+    ): Call<String>
 }

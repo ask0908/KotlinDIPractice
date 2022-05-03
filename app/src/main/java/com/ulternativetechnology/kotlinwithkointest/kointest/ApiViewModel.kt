@@ -97,4 +97,31 @@ open class ApiViewModel(private val repo: ApiInterface) : BaseViewModel() {
         return responses
     }
 
+    fun isRegisteredUserString(email: String): MutableLiveData<String> {
+        val stringData = MutableLiveData<String>()
+
+        viewModelScope.launch(ioDispatchers) {
+            repo.isRegisteredUserString(email).enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                    if (response.isSuccessful) {
+                        LogUtil.e(TAG, "뷰모델에서 성공 확인 : ${response.body()}");
+                        stringData.value = response.body()
+                    } else {
+                        try {
+                            stringData.value = response.errorBody()?.string()
+                        }   catch (e: IOException) {
+                            LogUtil.e(TAG, "실패!! ${e.message}");
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<String>, t: Throwable) {
+                    LogUtil.e(TAG, "뷰모델에서 에러 확인 : ${t.message}");
+                }
+            })
+        }
+
+        return stringData
+    }
+
 }

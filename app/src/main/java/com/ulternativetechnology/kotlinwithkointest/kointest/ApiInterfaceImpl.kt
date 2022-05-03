@@ -11,4 +11,7 @@ class ApiInterfaceImpl: ApiInterface {
 
     override fun isRegisteredUserForRetrofit(email: String): Call<ServerResponse> =
         ApiClient.getApiInterface().isRegisteredUserForRetrofit(email)
+
+    override fun isRegisteredUserString(email: String): Call<String> =
+        ApiClient.getApiInterface().isRegisteredUserString(email)
 }
