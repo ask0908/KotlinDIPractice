@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil.setContentView
+import androidx.lifecycle.MutableLiveData
 import com.ulternativetechnology.kotlinwithkointest.R
 import com.ulternativetechnology.kotlinwithkointest.base.BaseActivity
 import com.ulternativetechnology.kotlinwithkointest.databinding.ActivityFlowBinding
@@ -33,6 +34,7 @@ class FlowActivity : BaseActivity<ActivityFlowBinding>(), CoroutineScope {
 
     private lateinit var apiViewModel: ApiViewModel
     private lateinit var job: Job
+    val api = ApiClient.getApiInterface()
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -41,15 +43,16 @@ class FlowActivity : BaseActivity<ActivityFlowBinding>(), CoroutineScope {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        apiViewModel = ApiViewModel(ApiClient.getApiInterface())
+        apiViewModel = ApiViewModel(api)
         job = Job()
-        val api = ApiClient.getApiInterface()
 
+        /* launch {} 밖의 코드들이 먼저 실행된 다음 내부 코드들이 실행된다 */
         launch {
             showProgressDialog()
-//            delay(2000)
             LogUtil.e(TAG, "launch {} 내부 실행");
-            apiViewModel.isRegisteredUserForRetrofit("test")
+            apiViewModel.isRegisteredUserForRetrofit("test").observe(this@FlowActivity) { data ->
+                LogUtil.e(TAG, "액티비티에서 data.result : ${data!!.result}");
+            }
             dismissProgressDialog()
         }
 

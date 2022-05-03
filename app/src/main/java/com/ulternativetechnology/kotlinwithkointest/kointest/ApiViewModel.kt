@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.IOException
 
 open class ApiViewModel(private val repo: ApiInterface) : BaseViewModel() {
     val TAG = this.javaClass.simpleName
@@ -39,29 +40,29 @@ open class ApiViewModel(private val repo: ApiInterface) : BaseViewModel() {
     val isRegisteredUserData: LiveData<ServerResponse>
         get() = _isRegisteredUserData
 
-    fun test(email: String): MutableLiveData<ServerResponse> {
-        addDisposable(repo.isRegisteredUser(email)
-            .subscribeOn(io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                it.run {
-                    if (result) {
-                        LogUtil.e(TAG, "test() 성공 : $result");
-                    } else {
-                        LogUtil.e(TAG, "test() 실패 : $result");
-                    }
-                    _isRegisteredUserData.postValue(this)
-                }
-            }, {
-                LogUtil.e(TAG, "error : ${it.printStackTrace()}");
-            })
-        )
-        return _isRegisteredUserData
-    }
+//    fun test(email: String): MutableLiveData<ServerResponse> {
+//        addDisposable(repo.isRegisteredUser(email)
+//            .subscribeOn(io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                it.run {
+//                    if (result) {
+//                        LogUtil.e(TAG, "test() 성공 : $result");
+//                    } else {
+//                        LogUtil.e(TAG, "test() 실패 : $result");
+//                    }
+//                    _isRegisteredUserData.postValue(this)
+//                }
+//            }, {
+//                LogUtil.e(TAG, "error : ${it.printStackTrace()}");
+//            })
+//        )
+//        return _isRegisteredUserData
+//    }
 
-    fun isRegisteredUserForRetrofit(email: String) {
+    fun isRegisteredUserForRetrofit(email: String): MutableLiveData<ServerResponse?> {
+        val responses = MutableLiveData<ServerResponse?>()
         _dataLoading.value = true
-        list.value?.clear()
 
         viewModelScope.launch(ioDispatchers) {
             try {
@@ -70,17 +71,30 @@ open class ApiViewModel(private val repo: ApiInterface) : BaseViewModel() {
                         call: Call<ServerResponse>,
                         response: Response<ServerResponse>
                     ) {
-                        LogUtil.e(TAG, "뷰모델에서 성공 확인 : ${response.body()}");
+                        if (response.isSuccessful) {
+                            LogUtil.e(TAG, "뷰모델에서 성공 확인 : ${response.body()}");
+                            responses.value = response.body()
+                        } else {
+                            try {
+                                LogUtil.e(TAG, "뷰모델에서 실패 확인 : ${response.errorBody()?.string()}");
+                            }   catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+                        }
                     }
 
                     override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
                         LogUtil.e(TAG, "뷰모델에서 실패 확인 : ${t.message}");
+                        responses.value = null
                     }
                 })
             }   catch (e: Throwable) {
                 LogUtil.e(TAG, "에러 : ${e.message}");
+                responses.value = null
             }
         }
+
+        return responses
     }
 
 }

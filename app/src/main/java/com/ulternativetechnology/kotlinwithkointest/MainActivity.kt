@@ -21,12 +21,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        testPresenter.test("abcd@sdf.com").observe(this) {
-            if (it.result) {
-                LogUtil.e(TAG, "액티비티에서 확인한 result 값이 true : ${it.result}");
-            } else {
-                LogUtil.e(TAG, "액티비티에서 확인한 result 값이 false : ${it.result}");
-            }
-        }
+//        testPresenter.isRegisteredUser("abcd@sdf.com").observe(this) {
+//            if (it.result) {
+//                LogUtil.e(TAG, "액티비티에서 확인한 result 값이 true : ${it.result}");
+//            } else {
+//                LogUtil.e(TAG, "액티비티에서 확인한 result 값이 false : ${it.result}");
+//            }
+//        }
     }
 }
