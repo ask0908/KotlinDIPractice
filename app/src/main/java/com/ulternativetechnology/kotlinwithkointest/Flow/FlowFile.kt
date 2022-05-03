@@ -35,6 +35,7 @@ fun main() = runBlocking<Unit> {
         println("launch {} 내부 실행")
     }
     delay(1000L)
+    println("1초 지연됨!!")
     println("launch {} 외부 실행")
 
     /* 대상 코루틴의 Job 객체 참조를 유지하며 별도의 코루틴에서 취소하게 매번 지정하는 건 번거롭다

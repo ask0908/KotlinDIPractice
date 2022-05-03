@@ -5,6 +5,10 @@ import com.ulternativetechnology.kotlinwithkointest.base.BaseActivity
 import com.ulternativetechnology.kotlinwithkointest.databinding.ActivityMainBinding
 import com.ulternativetechnology.kotlinwithkointest.kointest.ApiViewModel
 import com.ulternativetechnology.kotlinwithkointest.util.LogUtil
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.koin.android.ext.android.inject
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
