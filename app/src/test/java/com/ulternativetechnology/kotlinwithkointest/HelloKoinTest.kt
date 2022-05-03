@@ -39,7 +39,7 @@ class HelloKoinTest: BaseTest() {
                 it.run {
                     /* 아래처럼 테스트하면 실패하더라도 통과했다는 녹색 표시가 나와서 boolean 지역변수를 만들고 그 값으로 테스트하는 방식으로 변경 */
 //                    assertTrue(!it.result)
-                    result = !it.result
+                    result = it.result
                 }
             }
         assertTrue(result!!)

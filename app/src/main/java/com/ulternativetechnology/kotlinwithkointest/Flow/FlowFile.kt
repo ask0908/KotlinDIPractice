@@ -4,6 +4,9 @@ import kotlinx.coroutines.*
 
 fun main() = runBlocking<Unit> {
 
+    println("My Context is $coroutineContext")
+    println("A context with name : ${coroutineContext + CoroutineName("Test")}")
+
     /* CoroutineScope : 코루틴이 실행되는 범위. 코루틴을 실행하고 싶은 lifeCycle에 따라 원하는 scope를 만들어 코루틴이
     * 실행될 작업 범위 지정 가능
     * - 사용자 지정 CoroutineScope: CoroutineScope(CoroutineContext) */
@@ -31,12 +34,12 @@ fun main() = runBlocking<Unit> {
 //    }
 
     /* CoroutineBuilder.launch() : Job 객체. 결과값 리턴 x */
-    CoroutineScope(Dispatchers.Default).launch {
-        println("launch {} 내부 실행")
-    }
-    delay(1000L)
-    println("1초 지연됨!!")
-    println("launch {} 외부 실행")
+//    CoroutineScope(Dispatchers.Default).launch {
+//        println("launch {} 내부 실행")
+//    }
+//    delay(1000L)
+//    println("1초 지연됨!!")
+//    println("launch {} 외부 실행")
 
     /* 대상 코루틴의 Job 객체 참조를 유지하며 별도의 코루틴에서 취소하게 매번 지정하는 건 번거롭다
     * 코루틴 프레임워크는 이 작업을 대신할 withTimeout()을 갖고 있다

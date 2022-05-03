@@ -21,4 +21,9 @@ interface ApiInterface {
     fun isRegisteredUserString(
         @Query("userEmail") email: String
     ): Call<String>
+
+    @GET("api/user/email/{userEmail}")
+    fun isRegisteredUserForFlow(
+        @Query("userEmail") email: String
+    ): List<String>
 }

@@ -39,14 +39,21 @@ class FlowActivity : BaseActivity<ActivityFlowBinding>(), CoroutineScope {
 
         /* launch {} 밖의 코드들이 먼저 실행된 다음 내부 코드들이 실행된다 */
         launch {
-            showProgressDialog()
-            apiViewModelInject.isRegisteredUserString("test").observe(this@FlowActivity) { data ->
+            apiViewModelInject.loadFoo("test").observe(this@FlowActivity) { data ->
                 if (data != null) {
-                    LogUtil.e(TAG, "액티비티에서 성공 확인 : $data");
+                    LogUtil.e(TAG, "액티비티에서 성공 확인 : ${data.toString()}");
                 } else {
                     LogUtil.e(TAG, "액티비티에서 확인한 결과가 null");
                 }
             }
+            /* Koin을 사용하는 경우 */
+//            apiViewModelInject.isRegisteredUserString("test").observe(this@FlowActivity) { data ->
+//                if (data != null) {
+//                    LogUtil.e(TAG, "액티비티에서 성공 확인 : $data");
+//                } else {
+//                    LogUtil.e(TAG, "액티비티에서 확인한 결과가 null");
+//                }
+//            }
             /* 서버 응답을 깡 String으로 받아올 경우. 이 경우 처음부터 파싱해서 필요한 값을 빼와야 한다 */
 //            apiViewModel.isRegisteredUserString("test").observe(this@FlowActivity) { data ->
 //                if (data != null) {
@@ -61,7 +68,6 @@ class FlowActivity : BaseActivity<ActivityFlowBinding>(), CoroutineScope {
 //                LogUtil.e(TAG, "액티비티에서 data.result : ${data!!.result}");
 //                result_textview.text = "결과는 ${data.result}"
 //            }
-            dismissProgressDialog()
         }
     }
 }

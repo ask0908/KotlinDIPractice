@@ -10,6 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers.io
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,8 +25,25 @@ open class ApiViewModel(private val repo: ApiInterface) : BaseViewModel() {
     val dataLoading: LiveData<Boolean> get() = _dataLoading
 
     private val _isRegisteredUserData = MutableLiveData<ServerResponse>()
-    val isRegisteredUserData: LiveData<ServerResponse>
-        get() = _isRegisteredUserData
+
+    private val _foo = MutableLiveData<List<String>>()
+    val foo: LiveData<List<String>> get() = _foo
+
+    private val apiRepository = ApiRepository(ApiClient.getApiInterface())
+
+    /* flow */
+    fun loadFoo(email: String): MutableLiveData<String> {
+        val data = MutableLiveData<String>()
+        viewModelScope.launch {
+            data.value = apiRepository.getFoo(email)
+                .catch { exception -> exception.printStackTrace() }
+                .collect { items ->
+                    LogUtil.e(TAG, "items : $items")
+                    _foo.value = items
+                }.toString()
+        }
+        return data
+    }
 
     /* MainActivity에서 사용 */
     fun isRegisteredUser(email: String): MutableLiveData<ServerResponse> {

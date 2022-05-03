@@ -12,4 +12,7 @@ class ApiInterfaceImpl: ApiInterface {
 
     override fun isRegisteredUserString(email: String): Call<String> =
         ApiClient.getApiInterface().isRegisteredUserString(email)
+
+    override fun isRegisteredUserForFlow(email: String): List<String> =
+        ApiClient.getApiInterface().isRegisteredUserForFlow(email)
 }
