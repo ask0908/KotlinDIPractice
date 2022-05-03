@@ -8,6 +8,14 @@
         android:layout_height="match_parent"
         tools:context=".Flow.FlowActivity">
 
+        <TextView
+            android:id="@+id/result_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="50sp"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

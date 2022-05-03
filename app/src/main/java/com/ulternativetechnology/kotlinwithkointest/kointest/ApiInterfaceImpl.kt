@@ -1,8 +1,6 @@
 package com.ulternativetechnology.kotlinwithkointest.kointest
 
 import io.reactivex.Observable
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 
 class ApiInterfaceImpl: ApiInterface {
