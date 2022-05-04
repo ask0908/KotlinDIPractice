@@ -30,10 +30,11 @@ class BaseApplication: Application() {
         * koinApplication {} : KoinApplication 컨테이너 구성 생성 */
         startKoin {
             androidContext(this@BaseApplication)
-            androidLogger(if (BuildConfig.DEBUG) Level.ERROR else Level.NONE)
+            androidLogger(Level.ERROR)
+//            androidLogger(if (BuildConfig.DEBUG) Level.ERROR else Level.NONE)
             // 위의 메서드 2개는 없어도 작동하긴 한다
             /* modules() : 컨테이너에 로드할 Koin 모듈 목록 설정. listOf()로 appModule을 구성한 예제가 있었다 */
-            modules(appModule)
+//            modules(appModule)
         }
     }
 
